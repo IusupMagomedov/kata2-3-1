@@ -1,12 +1,26 @@
 package org.example.app.models;
 
-import java.util.Objects;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Objects;
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
     private String name;
     private String password;
     private String email;
+
+    public User() {
+    }
 
     public User(String name, String password, String email) {
         this.name = name;

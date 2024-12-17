@@ -1,7 +1,5 @@
 package org.example.app.controllers;
 
-import org.example.app.dao.UserDao;
-import org.example.app.dao.UserDaoImpl;
 import org.example.app.models.User;
 import org.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
