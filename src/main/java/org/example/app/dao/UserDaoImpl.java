@@ -1,14 +1,26 @@
 package org.example.app.dao;
 
+
 import org.example.app.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+    private final EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    public UserDaoImpl(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
+
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
@@ -34,7 +46,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-
+        EntityManager entityManager;
+        EntityTransaction transaction;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            entityManager.persist(user);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
