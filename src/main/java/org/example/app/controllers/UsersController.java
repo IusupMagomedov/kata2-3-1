@@ -20,8 +20,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public String getUsers(@RequestParam(value = "limit", required = false)
-                           Integer limit, Model model) {
+    public String getUsers(@RequestParam(value = "limit", required = false) Integer limit, Model model) {
         List<User> users = userService.getUsers(limit);
 
         model.addAttribute("users", users);
@@ -30,9 +29,7 @@ public class UsersController {
     }
 
     @PostMapping("/create")
-    public String addUser(@RequestParam("name") String name,
-                          @RequestParam("email") String email,
-                          @RequestParam("password") String password) {
+    public String addUser(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
@@ -41,17 +38,22 @@ public class UsersController {
         return "redirect:/users";
     }
 
+    @GetMapping("/update")
+    public String updateUser(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.getUser(id));
+        return "/update";
+    }
+
     @PostMapping("/update")
-    public String updateUser(@RequestParam("name") String name,
-                             @RequestParam("email") String email,
-                             @RequestParam("password") String password) {
-        User user = new User();
+    public String updateUser(@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password) {
+        User user = userService.getUser(id);
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
         userService.updateUser(user);
         return "redirect:/users";
     }
+
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") String id) {
         Long longId = Long.valueOf(id);

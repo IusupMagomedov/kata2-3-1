@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update user</title>
+</head>
+<body>
+  <p>Update user</p>
+  <form id="form" action="/users/update" method="post">
+    <input type="hidden" name="id" th:value="${user.id}">
+    <label for="nameToCreate">Name:</label>
+    <input type="text" id="nameToCreate" name="name" th:value="${user.name}"><br><br>
+    <label for="emailToCreate">Email:</label>
+    <input type="email" id="emailToCreate" name="email" th:value="${user.email}"><br><br>
+    <label for="passwordToCreate">Password:</label>
+    <input type="password" id="passwordToCreate" name="password" th:value="${user.password}"><br><br>
+    <input type="submit" id="createButton" value="Update">
+  </form>
+</body>
+</html>

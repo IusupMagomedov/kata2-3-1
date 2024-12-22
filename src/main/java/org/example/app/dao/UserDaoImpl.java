@@ -21,20 +21,6 @@ public class UserDaoImpl implements UserDao {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-//        List<User> users = new ArrayList<>();
-//        Random random = new Random();
-//
-//        String[] names = {"Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Hank", "Ivy", "Jack"};
-//        String[] domains = {"example.com", "test.com", "email.com", "mail.com"};
-//
-//        for (int i = 0; i < 10; i++) {
-//            String name = names[random.nextInt(names.length)];
-//            String password = "pass" + (1000 + random.nextInt(9000)); // Генерация пароля вида "pass1234"
-//            String email = name.toLowerCase() + "@" + domains[random.nextInt(domains.length)];
-//            users.add(new User(name, password, email));
-//        }
-
-
     @Override
     public User findById(Long id) {
         return entityManager.find(User.class, id);
