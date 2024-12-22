@@ -3,6 +3,7 @@ package org.example.app.config;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -32,7 +33,7 @@ public class HibernateConfig {
         this.env = env;
     }
 
-
+    @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(env.getProperty("db.url"));
@@ -50,7 +51,7 @@ public class HibernateConfig {
         return dataSource;
     }
 
-
+    @Bean(name = "hibernateProperties")
     public Properties getHibernateProperties() {
         try {
             Properties properties = new Properties();
@@ -58,18 +59,21 @@ public class HibernateConfig {
             properties.load(is);
             return properties;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory(){
-        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(getDataSource());
-        em.setPackagesToScan(env.getProperty("db.packagesToScan"));
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            DataSource dataSource,
+            @Qualifier("hibernateProperties") Properties hibernateProperties) {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource);
+        em.setPackagesToScan("org.example.app.models");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(getHibernateProperties());
-        return em.getObject();
+        em.setJpaProperties(hibernateProperties);
+        return em;
     }
 
 //    @Bean
