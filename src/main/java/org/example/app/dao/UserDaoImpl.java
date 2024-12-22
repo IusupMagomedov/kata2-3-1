@@ -1,7 +1,6 @@
 package org.example.app.dao;
 
 import org.example.app.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -37,13 +36,14 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public User findById(int id) {
+    public User findById(Long id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    public void save(User user) {
+    public Long save(User user) {
         entityManager.persist(user);
+        return user.getId();
     }
 
     @Override
@@ -52,7 +52,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(Long id) {
+        User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
 }

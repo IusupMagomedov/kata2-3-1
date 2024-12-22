@@ -63,4 +63,8 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, name, password, email);
     }
+
+    public Long getId() {
+        return id;
+    }
 }

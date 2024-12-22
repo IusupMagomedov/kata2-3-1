@@ -7,7 +7,7 @@ public interface UserService {
     List<User> getUsers();
     List<User> getUsers(Integer limit);
     User getUser(Long id);
-    User createUser(User user);
-    User updateUser(User user);
+    Long createUser(User user);
+    void updateUser(User user);
     void deleteUser(Long id);
 }
