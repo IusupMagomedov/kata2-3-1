@@ -2,6 +2,7 @@ package org.example.app.dao;
 
 import org.example.app.models.User;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 

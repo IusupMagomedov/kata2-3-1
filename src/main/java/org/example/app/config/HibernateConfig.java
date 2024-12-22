@@ -65,9 +65,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            DataSource dataSource,
-            @Qualifier("hibernateProperties") Properties hibernateProperties) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, @Qualifier("hibernateProperties") Properties hibernateProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan("org.example.app.models");
@@ -75,42 +73,4 @@ public class HibernateConfig {
         em.setJpaProperties(hibernateProperties);
         return em;
     }
-
-//    @Bean
-//    public DataSource getDataSource() {
-//        BasicDataSource dataSource = new BasicDataSource();
-//        dataSource.setUrl(env.getProperty("db.url"));
-//        dataSource.setDriverClassName(env.getProperty("db.driver"));
-//        dataSource.setUsername(env.getProperty("db.username"));
-//        dataSource.setPassword(env.getProperty("db.password"));
-//
-//        dataSource.setInitialSize(Integer.parseInt(Objects.requireNonNull(env.getProperty("db.initialize"))));
-//        dataSource.setMinIdle(Integer.parseInt(Objects.requireNonNull(env.getProperty("db.minIdle"))));
-//        dataSource.setMaxIdle(Integer.parseInt(Objects.requireNonNull(env.getProperty("db.maxIdle"))));
-//        dataSource.setTimeBetweenEvictionRunsMillis(Integer.parseInt(Objects.requireNonNull(env.getProperty("db.timeBetweenEvictionRunsMillis"))));
-//        dataSource.setMinEvictableIdleTimeMillis(Integer.parseInt(Objects.requireNonNull(env.getProperty("db.minEvictableIdleTimeMillis"))));
-//        dataSource.setTestOnBorrow(Boolean.parseBoolean(env.getProperty("db.testOnBorrow")));
-//        dataSource.setValidationQuery(env.getProperty("db.validationQuery"));
-//        return dataSource;
-//    }
-//
-
-//
-//    private Properties getHibernateProperties() {
-//        try {
-//            Properties properties = new Properties();
-//            InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
-//            properties.load(is);
-//            return properties;
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager getTransactionManager2() {
-//        JpaTransactionManager manager = new JpaTransactionManager();
-//        manager.setEntityManagerFactory(entityManagerFactory().getObject());
-//        return manager;
-//    }
 }
