@@ -18,7 +18,7 @@
             <td th:text="${user.email}"></td>
             <td>
                 <form action="/users/delete" method="post">
-                    <input type="hidden" name="name" th:value="${user.id}">
+                    <input type="hidden" name="id" th:value="${user.id}">
                     <input type="submit" value="Delete">
                 </form>
             </td>
